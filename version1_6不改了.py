@@ -254,10 +254,11 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
 
 
         if flag:
-            if(count%(6000/100) == 0):
-                print("%d%%"%percent, end = ' ',flush = True)
+           if(k*100/loop_timestep > percent):
+               print("%d%%"%percent, end = ' ',flush = True)
+               if percent%10 == 0:
+                   print()
                 percent += 1
-                print()
             count += 1
             energy2_array.append(E)
             capacity2_array.append(E**2)
@@ -265,7 +266,7 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
 ##            if k >= mid_term:
 ##                energy2 += E
 ##                capacity2 += E**2
-            if(count==6000):
+            if(count==loop_timestep):
                 break
         else:
             print(str(count2)+'次:'+str(E),end = ' ')
