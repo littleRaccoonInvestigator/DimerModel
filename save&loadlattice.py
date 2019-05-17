@@ -14,7 +14,7 @@ def save_lattice(lattice, sizeOfSample, filename):
         
 def load_lattice(sizeOfSample, filename):
     try:
-        filepointer = open("ground_state_24.dat", "rb")
+        filepointer = open(str(filename) + ".dat", "rb")
         lat = pickle.load(filepointer)
         filepointer.close()
     except Exception as inst:
