@@ -3,7 +3,7 @@ import random
 import matplotlib.pyplot as plt
 import numpy as np
 import datetime
-
+import pickle
 
 
 class Node(object):
@@ -34,6 +34,9 @@ def initialGraph(sizeOfSample):
                 S[i][j].linkedto = S[(location[0]+1)%sizeOfSample][location[1]]
             else:
                 S[i][j].linkedto = S[(location[0]-1)%sizeOfSample][location[1]]
+    seq = [complex(-0.5,np.sqrt(3)/2),1,complex(-0.5,-np.sqrt(3)/2)]
+    global plaquetteType
+    plaquetteType = np.array([[seq[j%3-(i%2)] for j in range(sizeOfSample//2)]for i in range(sizeOfSample)])
     return S
 
 
@@ -128,7 +131,7 @@ def starType(S,node,sizeOfSample):
     
     return "other kind of star"
     
-def orderParameter(S,sizeOfSample):
+def orderParameter_obsolete(S,sizeOfSample):
     countOfStar = [0,0,0]
     
     for i in range(sizeOfSample):
@@ -145,10 +148,18 @@ def orderParameter(S,sizeOfSample):
     unit_vector_3 = complex(-1/2, -np.sqrt(3)/2) #down
     return countOfStar[0]*unit_vector_2 + countOfStar[1]*unit_vector_3 + countOfStar[2]*unit_vector_1
 
-def orderparameter(S,sizeOfSample):
-    seq = [complex(-0.5,np.sqrt(3)/2),1,complex(-0.5,-np.sqrt(3)/2)]
-    plaquetteType = np.array([[seq[j%3-(i%2)] for j in range(sizeOfSample//2)]for i in range(sizeOfSample)])
+def orderParameter(S,sizeOfSample):
     return sum(sum(np.multiply(plaquetteType,finalType(S,sizeOfSample))))
+
+def finalType(S,sizeOfSample):
+    final = [[0 for j in range(sizeOfSample//2)]for i in range(sizeOfSample)]
+    for i in range(sizeOfSample):
+        for j in range(sizeOfSample//2):
+            if(isStar(S,S[i][j*2+i%2],sizeOfSample)==3):
+                if(S[i][j*2+i%2].linkedto.location==[i,(j*2+i%2-1)%sizeOfSample]):
+                    final[i][j]=1
+    final = np.array(final)
+    return final
 
 def isStar(S,node,sizeOfSample): 
     location1 = node.location
@@ -174,18 +185,6 @@ def totalNumOfStar(S,sizeOfSample):
             if(isStar(S,S[i][j*2+i%2],sizeOfSample)==3):
                 countOfStar += 1
     return countOfStar
-
-
-def finalType(S,sizeOfSample):
-    final = [[0 for j in range(sizeOfSample//2)]for i in range(sizeOfSample)]
-    for i in range(sizeOfSample):
-        for j in range(sizeOfSample//2):
-            if(isStar(S,S[i][j*2+i%2],sizeOfSample)==3):
-                if(S[i][j*2+i%2].linkedto.location==[i,(j*2+i%2-1)%sizeOfSample]):
-                    final[i][j]=1
-    final = np.array(final)
-    return final
-
 
 def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B,mcstp):
     
@@ -268,9 +267,9 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
                     E = E_previous
                     S = updateLoop(S,path)
                     refresh_reject += 1
-                if(E==-192 and (flag==False)):
+                if(E==-sizeOfSample*sizeOfSample/3 and (flag==False)):
                     flag = True
-                    print('T='+str(temperature)+'时,触底次数:'+str(count2))
+                    print('T='+str(temperature)+',times of reaching ground state:'+str(count2))
                     print(orderparameter(S,sizeOfSample))
                 if(count2>=30):
                     count2 = 0
@@ -282,32 +281,32 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
 
 
         if flag:
-            if(count%(5000/100) == 0):
+            if(count%(loop_timestep/100) == 0):
                 print("%d%%"%percent, end = ' ',flush = True)
                 percent += 1
                 print()
             count += 1
-            if(count<=1000):
+            if(count<=loop_timestep/5):
                 ordr = orderparameter(S,sizeOfSample)# calculate orderparameter
                 energy_array.append(E)
                 capacity_array.append(E**2)
                 order_parm_array.append(ordr)
-            elif(count<=2000):
+            elif(count<=loop_timestep/5*2):
                 ordr = orderparameter(S,sizeOfSample)
                 energy2_array.append(E)
                 capacity2_array.append(E**2)
                 order_parm2_array.append(ordr)
-            elif(count<=3000):
+            elif(count<=loop_timestep/5*3):
                 ordr = orderparameter(S,sizeOfSample)
                 energy3_array.append(E)
                 capacity3_array.append(E**2)
                 order_parm3_array.append(ordr)
-            elif(count<=4000):
+            elif(count<=loop_timestep/5*4):
                 ordr = orderparameter(S,sizeOfSample)
                 energy4_array.append(E)
                 capacity4_array.append(E**2)
                 order_parm4_array.append(ordr)
-            elif(count<=5000):
+            elif(count<=loop_timestep):
                 ordr = orderparameter(S,sizeOfSample)
                 energy5_array.append(E)
                 capacity5_array.append(E**2)
@@ -315,10 +314,10 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
 ##            if k >= mid_term:
 ##                energy2 += E
 ##                capacity2 += E**2
-            if(count==5000):
+            if(count==loop_timestep):
                 break
         else:
-            print(str(count2)+'次:'+str(E),end = ' ')
+            print(str(count2)+' times:'+str(E),end = ' ')
         
 
 ##        if k >= mid_term:
@@ -447,7 +446,27 @@ def write_data(parameters):
         f.write(str(parameters)[1:-1]+','+now.strftime("%m-%d_%H_%M") + '\n')
         f.close()
 
-    
+def save_lattice(lattice, sizeOfSample, filename):
+    try:
+        filepointer = open(str(filename) + ".dat", "wb")
+        pickle.dump(lattice,filepointer)
+    except Exception as inst:
+        print("An error occurred when saving data")
+        print(inst.args)
+        return 
+    finally:
+        filepointer.close() 
+        
+def load_lattice(sizeOfSample, filename):
+    try:
+        filepointer = open(str(filename) + ".dat", "rb")
+        lat = pickle.load(filepointer)
+    except Exception as inst:
+        print("An error occurred when loading data")
+        print(inst.args)
+        return None
+    return lat
+
 if __name__ == "__main__":
     mcstp = 24*24
     sizeOfSample = 24
