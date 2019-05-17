@@ -454,7 +454,7 @@ if __name__ == "__main__":
     shuffle_timestep = 5000
     loop_timestep = 100
     mid_term = 1
-    temperature = [0.2,0.3,0.4,0.5]
+    temperature = [0.8]
     k_B = 1 
     E_per_star = -1
     
