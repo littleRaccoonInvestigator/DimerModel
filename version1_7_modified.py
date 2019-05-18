@@ -149,7 +149,7 @@ def orderParameter_obsolete(S,sizeOfSample):
     return countOfStar[0]*unit_vector_2 + countOfStar[1]*unit_vector_3 + countOfStar[2]*unit_vector_1
 
 def orderparameter(S,sizeOfSample):
-    return sum(sum(np.multiply(plaquetteType,finalType(S,sizeOfSample))))
+    return sum(sum(np.multiply(plaquetteType,finalType(S,sizeOfSample))))/(sizeOfSample)**2
 
 def finalType(S,sizeOfSample):
     final = [[0 for j in range(sizeOfSample//2)]for i in range(sizeOfSample)]
@@ -307,7 +307,7 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
         count += 1
 
         if(count<=loop_timestep/5):
-            ordr = orderparameter(S,sizeOfSample)/sizeOfSample**2
+            ordr = orderparameter(S,sizeOfSample)
             ordra = abs(ordr)
             energy1_array.append(E)
             capacity1_array.append(E**2)
@@ -315,7 +315,7 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
             order_square1_array.append(ordra**2)
             order_fourthpower1_array.append(ordra**4)
         elif(count<=loop_timestep/5*2):
-            ordr = orderparameter(S,sizeOfSample)/sizeOfSample**2
+            ordr = orderparameter(S,sizeOfSample)
             ordra = abs(ordr)
             energy2_array.append(E)
             capacity2_array.append(E**2)
@@ -323,7 +323,7 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
             order_square2_array.append(ordra**2)
             order_fourthpower2_array.append(ordra**4)
         elif(count<=loop_timestep/5*3):
-            ordr = orderparameter(S,sizeOfSample)/sizeOfSample**2
+            ordr = orderparameter(S,sizeOfSample)
             ordra = abs(ordr)
             energy3_array.append(E)
             capacity3_array.append(E**2)
@@ -331,7 +331,7 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
             order_square3_array.append(ordra**2)
             order_fourthpower3_array.append(ordra**4)
         elif(count<=loop_timestep/5*4):
-            ordr = orderparameter(S,sizeOfSample)/sizeOfSample**2
+            ordr = orderparameter(S,sizeOfSample)
             ordra = abs(ordr)
             energy4_array.append(E)
             capacity4_array.append(E**2)
@@ -339,7 +339,7 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
             order_square4_array.append(ordra**2)
             order_fourthpower4_array.append(ordra**4)
         elif(count<=loop_timestep):
-            ordr = orderparameter(S,sizeOfSample)/sizeOfSample**2
+            ordr = orderparameter(S,sizeOfSample)
             ordra = abs(ordr)
             energy5_array.append(E)
             capacity5_array.append(E**2)
