@@ -392,7 +392,7 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
     order_fourthpower_mean4 = np.mean(np.array(order_fourthpower4_array))
     order_fourthpower_mean5 = np.mean(np.array(order_fourthpower5_array))
     
-    binder_ratio1 = 1 - order_fourthpower_mean1/(3*order_square_mean**2)
+    binder_ratio1 = 1 - order_fourthpower_mean1/(3*order_square_mean1**2)
     binder_ratio2 = 1 - order_fourthpower_mean2/(3*order_square_mean2**2)
     binder_ratio3 = 1 - order_fourthpower_mean3/(3*order_square_mean3**2)
     binder_ratio4 = 1 - order_fourthpower_mean4/(3*order_square_mean4**2)
