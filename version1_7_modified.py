@@ -188,31 +188,31 @@ def totalNumOfStar(S,sizeOfSample):
 
 def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B,mcstp):
     
-    energy_array = []
+    energy1_array = []
     energy2_array = []
     energy3_array = []
     energy4_array = []
     energy5_array = []
     
-    capacity_array = []
+    capacity1_array = []
     capacity2_array = []
     capacity3_array = []
     capacity4_array = []
     capacity5_array = []
     
-    order_parm_array = []
+    order_parm1_array = []
     order_parm2_array = []
     order_parm3_array = []
     order_parm4_array = []
     order_parm5_array = []
     
-    order_square_array = []
+    order_square1_array = []
     order_square2_array = []
     order_square3_array = []
     order_square4_array = []
     order_square5_array = []    
    
-    order_fourthpower_array = []
+    order_fourthpower1_array = []
     order_fourthpower2_array = []
     order_fourthpower3_array = []
     order_fourthpower4_array = []
@@ -350,55 +350,55 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
         if(count==loop_timestep):
             break
         
-    energy = np.mean(np.array(energy_array))
+    energy1 = np.mean(np.array(energy1_array))
     energy2 = np.mean(np.array(energy2_array))
     energy3 = np.mean(np.array(energy3_array))
     energy4 = np.mean(np.array(energy4_array))
     energy5 = np.mean(np.array(energy5_array))
     
-    capacity = np.mean(np.array(capacity_array))
+    capacity1 = np.mean(np.array(capacity1_array))
     capacity2 = np.mean(np.array(capacity2_array))
     capacity3 = np.mean(np.array(capacity3_array))
     capacity4 = np.mean(np.array(capacity4_array))
     capacity5 = np.mean(np.array(capacity5_array))
     
-    capacity = (capacity-energy**2)/((k_B*temperature)**2)/sizeOfSample**2
+    capacity1 = (capacity1-energy**2)/((k_B*temperature)**2)/sizeOfSample**2
     capacity2 =(capacity2-energy2**2)/((k_B*temperature)**2)/sizeOfSample**2
     capacity3 =(capacity3-energy3**2)/((k_B*temperature)**2)/sizeOfSample**2
     capacity4 =(capacity4-energy4**2)/((k_B*temperature)**2)/sizeOfSample**2
     capacity5 =(capacity5-energy5**2)/((k_B*temperature)**2)/sizeOfSample**2
     
-    energy = energy/sizeOfSample**2
+    energy1 = energy1/sizeOfSample**2
     energy2 = energy2/sizeOfSample**2
     energy3 = energy3/sizeOfSample**2
     energy4 = energy4/sizeOfSample**2
     energy5 = energy5/sizeOfSample**2
 
-    orderParm = np.mean(np.array(order_parm_array))
+    orderParm1 = np.mean(np.array(order_parm1_array))
     orderParm2 = np.mean(np.array(order_parm2_array))
     orderParm3 = np.mean(np.array(order_parm3_array))
     orderParm4 = np.mean(np.array(order_parm4_array))
     orderParm5 = np.mean(np.array(order_parm5_array))
     
-    order_square_mean = np.mean(np.array(order_square_array))
+    order_square_mean1 = np.mean(np.array(order_square1_array))
     order_square_mean2 = np.mean(np.array(order_square2_array))
     order_square_mean3 = np.mean(np.array(order_square3_array))
     order_square_mean4 = np.mean(np.array(order_square4_array))
     order_square_mean5 = np.mean(np.array(order_square5_array))
     
-    order_fourthpower_mean = np.mean(np.array(order_fourthpower_array))
+    order_fourthpower_mean1 = np.mean(np.array(order_fourthpower1_array))
     order_fourthpower_mean2 = np.mean(np.array(order_fourthpower2_array))
     order_fourthpower_mean3 = np.mean(np.array(order_fourthpower3_array))
     order_fourthpower_mean4 = np.mean(np.array(order_fourthpower4_array))
     order_fourthpower_mean5 = np.mean(np.array(order_fourthpower5_array))
     
-    binder_ratio = 1 - order_fourthpower_mean/(3*order_square_mean**2)
+    binder_ratio1 = 1 - order_fourthpower_mean1/(3*order_square_mean**2)
     binder_ratio2 = 1 - order_fourthpower_mean2/(3*order_square_mean2**2)
     binder_ratio3 = 1 - order_fourthpower_mean3/(3*order_square_mean3**2)
     binder_ratio4 = 1 - order_fourthpower_mean4/(3*order_square_mean4**2)
     binder_ratio5 = 1 - order_fourthpower_mean5/(3*order_square_mean5**2)
     
-    print('\nparameters:(energy,capacity,temperature,loop_timesteps)\n',[energy,energy2,energy3,energy4,energy5,capacity,capacity2,capacity3,capacity4,capacity5,temperature,loop_timestep])
+    print('\nparameters:(energy,capacity,temperature,loop_timesteps)\n',[energy1,energy2,energy3,energy4,energy5,capacity1,capacity2,capacity3,capacity4,capacity5,temperature,loop_timestep])
     print()
     print()
     
@@ -406,8 +406,8 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
     avg_length = np.mean(np.array(length_stat))
     
     save_lattice(S, sizeOfSample, "lattice_" + str(sizeOfSample) + '_' + str(temperature) + 'K') 
-    return [temperature,energy,energy2,energy3,energy4,energy5,capacity,capacity2,capacity3,capacity4,capacity5,
-            orderParm,orderParm2,orderParm3,orderParm4,orderParm5,binder_ratio,binder_ratio2,binder_ratio3,binder_ratio4,binder_ratio5,
+    return [temperature,energy1,energy2,energy3,energy4,energy5,capacity1,capacity2,capacity3,capacity4,capacity5,
+            orderParm1,orderParm2,orderParm3,orderParm4,orderParm5,binder_ratio1,binder_ratio2,binder_ratio3,binder_ratio4,binder_ratio5,
             gsop,accept_ratio,avg_length,
     sizeOfSample,shuffle_timestep,mcstp,loop_timestep,mid_term,J,k_B]
 
@@ -494,8 +494,8 @@ def write_data(parameters):
     now = datetime.datetime.now()
     with open("results.csv","a+") as f:
         if not created:
-            f.write("temperature,energy,energy2,energy3,energy4,energy5,capacity,capacity2,capacity3,capacity4,capacity5," +
-                    "orderParm,orderParm2,orderParm3,orderParm4,orderParm5,binderratio,binderratio2,binderratio3,binderratio4,binderratio5,gsop,acpt_rat,avg_len," +
+            f.write("temperature,energy1,energy2,energy3,energy4,energy5,capacity1,capacity2,capacity3,capacity4,capacity5," +
+                    "orderParm1,orderParm2,orderParm3,orderParm4,orderParm5,binderratio1,binderratio2,binderratio3,binderratio4,binderratio5,gsop,acpt_rat,avg_len," +
             "sizeOfSample,shuffle_timestep,mcstp,loop_timestep,mid_term,Energy_per_star,k_B,date\n")
         f.write(str(parameters)[1:-1]+','+now.strftime("%m-%d_%H_%M") + '\n')
         f.close()
