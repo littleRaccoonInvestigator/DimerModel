@@ -417,9 +417,17 @@ def plot(lattice,sizeOfSample):
 
     for y in range(sizeOfSample):
         for x in range(sizeOfSample//2):
-            if(isStar(lattice,lattice[y][x*2+y%2],sizeOfSample)==3):
+            if (starType(lattice,lattice[y][x*2+y%2],sizeOfSample) == 1):
                 plt.plot((x*2+y%2)*np.sqrt(3)/2,y*1.5+1.5 if(lattice[y][x*2+y%2].direction) else y*1.5 + 1.0,
-                marker = 'o',markersize = 8.0,mec = [0,1,0],mfc = [1,1,0])
+                marker = '>',markersize = 8.0,mec = [0.7,0,0.8],mfc = [1,1,0])
+                
+            elif (starType(lattice,lattice[y][x*2+y%2],sizeOfSample) == -1):
+                plt.plot((x*2+y%2)*np.sqrt(3)/2,y*1.5+1.5 if(lattice[y][x*2+y%2].direction) else y*1.5 + 1.0,
+                marker = '<',markersize = 8.0,mec = [0.7,0,0.8],mfc = [1,1,0])
+            
+            elif (starType(lattice,lattice[y][x*2+y%2],sizeOfSample) == 0):
+                plt.plot((x*2+y%2)*np.sqrt(3)/2,y*1.5+1.5 if(lattice[y][x*2+y%2].direction) else y*1.5 + 1.0,
+                marker = 'o',markersize = 8.0,mec = [0.7,0,0.8],mfc = [1,1,0])
 
     plt.show()
     
