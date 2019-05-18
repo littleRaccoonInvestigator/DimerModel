@@ -362,7 +362,7 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
     capacity4 = np.mean(np.array(capacity4_array))
     capacity5 = np.mean(np.array(capacity5_array))
     
-    capacity1 = (capacity1-energy**2)/((k_B*temperature)**2)/sizeOfSample**2
+    capacity1 =(capacity1-energy1**2)/((k_B*temperature)**2)/sizeOfSample**2
     capacity2 =(capacity2-energy2**2)/((k_B*temperature)**2)/sizeOfSample**2
     capacity3 =(capacity3-energy3**2)/((k_B*temperature)**2)/sizeOfSample**2
     capacity4 =(capacity4-energy4**2)/((k_B*temperature)**2)/sizeOfSample**2
