@@ -205,6 +205,18 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
     order_parm3_array = []
     order_parm4_array = []
     order_parm5_array = []
+    
+    order_square_array = []
+    order_square2_array = []
+    order_square3_array = []
+    order_square4_array = []
+    order_square5_array = []    
+   
+    order_fourthpower_array = []
+    order_fourthpower2_array = []
+    order_fourthpower3_array = []
+    order_fourthpower4_array = []
+    order_fourthpower5_array = []    
    
     refresh_accept = 0
     refresh_reject = 0
@@ -295,30 +307,45 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
         count += 1
 
         if(count<=loop_timestep/5):
-            ordr = orderparameter(S,sizeOfSample)# calculate orderparameter
-            energy_array.append(E)
-            capacity_array.append(E**2)
-            order_parm_array.append(ordr)
+            ordr = orderparameter(S,sizeOfSample)/sizeOfSample**2
+            ordra = abs(ordr)
+            energy1_array.append(E)
+            capacity1_array.append(E**2)
+            order_parm1_array.append(ordr)
+            order_square1_array.append(ordra**2)
+            order_fourthpower1_array.append(ordra**4)
         elif(count<=loop_timestep/5*2):
-            ordr = orderparameter(S,sizeOfSample)
+            ordr = orderparameter(S,sizeOfSample)/sizeOfSample**2
+            ordra = abs(ordr)
             energy2_array.append(E)
             capacity2_array.append(E**2)
             order_parm2_array.append(ordr)
+            order_square2_array.append(ordra**2)
+            order_fourthpower2_array.append(ordra**4)
         elif(count<=loop_timestep/5*3):
-            ordr = orderparameter(S,sizeOfSample)
+            ordr = orderparameter(S,sizeOfSample)/sizeOfSample**2
+            ordra = abs(ordr)
             energy3_array.append(E)
             capacity3_array.append(E**2)
             order_parm3_array.append(ordr)
+            order_square3_array.append(ordra**2)
+            order_fourthpower3_array.append(ordra**4)
         elif(count<=loop_timestep/5*4):
-            ordr = orderparameter(S,sizeOfSample)
+            ordr = orderparameter(S,sizeOfSample)/sizeOfSample**2
+            ordra = abs(ordr)
             energy4_array.append(E)
             capacity4_array.append(E**2)
             order_parm4_array.append(ordr)
+            order_square4_array.append(ordra**2)
+            order_fourthpower4_array.append(ordra**4)
         elif(count<=loop_timestep):
-            ordr = orderparameter(S,sizeOfSample)
+            ordr = orderparameter(S,sizeOfSample)/sizeOfSample**2
+            ordra = abs(ordr)
             energy5_array.append(E)
             capacity5_array.append(E**2)
             order_parm5_array.append(ordr)
+            order_square5_array.append(ordra**2)
+            order_fourthpower5_array.append(ordra**4)
             
         if(count==loop_timestep):
             break
@@ -353,6 +380,24 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
     orderParm4 = np.mean(np.array(order_parm4_array))
     orderParm5 = np.mean(np.array(order_parm5_array))
     
+    order_square_mean = np.mean(np.array(order_square_array))
+    order_square_mean2 = np.mean(np.array(order_square2_array))
+    order_square_mean3 = np.mean(np.array(order_square3_array))
+    order_square_mean4 = np.mean(np.array(order_square4_array))
+    order_square_mean5 = np.mean(np.array(order_square5_array))
+    
+    order_fourthpower_mean = np.mean(np.array(order_fourthpower_array))
+    order_fourthpower_mean2 = np.mean(np.array(order_fourthpower2_array))
+    order_fourthpower_mean3 = np.mean(np.array(order_fourthpower3_array))
+    order_fourthpower_mean4 = np.mean(np.array(order_fourthpower4_array))
+    order_fourthpower_mean5 = np.mean(np.array(order_fourthpower5_array))
+    
+    binder_ratio = 1 - order_fourthpower_mean/(3*order_square_mean**2)
+    binder_ratio2 = 1 - order_fourthpower_mean2/(3*order_square_mean2**2)
+    binder_ratio3 = 1 - order_fourthpower_mean3/(3*order_square_mean3**2)
+    binder_ratio4 = 1 - order_fourthpower_mean4/(3*order_square_mean4**2)
+    binder_ratio5 = 1 - order_fourthpower_mean5/(3*order_square_mean5**2)
+    
     print('\nparameters:(energy,capacity,temperature,loop_timesteps)\n',[energy,energy2,energy3,energy4,energy5,capacity,capacity2,capacity3,capacity4,capacity5,temperature,loop_timestep])
     print()
     print()
@@ -361,7 +406,9 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
     avg_length = np.mean(np.array(length_stat))
     
     save_lattice(S, sizeOfSample, "lattice_" + str(sizeOfSample) + '_' + str(temperature) + 'K') 
-    return [temperature,energy,energy2,energy3,energy4,energy5,capacity,capacity2,capacity3,capacity4,capacity5,orderParm,orderParm2,orderParm3,orderParm4,orderParm5,gsop,accept_ratio,avg_length,
+    return [temperature,energy,energy2,energy3,energy4,energy5,capacity,capacity2,capacity3,capacity4,capacity5,
+            orderParm,orderParm2,orderParm3,orderParm4,orderParm5,binder_ratio,binder_ratio2,binder_ratio3,binder_ratio4,binder_ratio5,
+            gsop,accept_ratio,avg_length,
     sizeOfSample,shuffle_timestep,mcstp,loop_timestep,mid_term,J,k_B]
 
 def plot(lattice,sizeOfSample):
@@ -447,7 +494,8 @@ def write_data(parameters):
     now = datetime.datetime.now()
     with open("results.csv","a+") as f:
         if not created:
-            f.write("temperature,energy,energy2,energy3,energy4,energy5,capacity,capacity2,capacity3,capacity4,capacity5,orderParm,orderParm2,orderParm3,orderParm4,orderParm5,gsop,acpt_rat,avg_len," +
+            f.write("temperature,energy,energy2,energy3,energy4,energy5,capacity,capacity2,capacity3,capacity4,capacity5," +
+                    "orderParm,orderParm2,orderParm3,orderParm4,orderParm5,binderratio,binderratio2,binderratio3,binderratio4,binderratio5,gsop,acpt_rat,avg_len," +
             "sizeOfSample,shuffle_timestep,mcstp,loop_timestep,mid_term,Energy_per_star,k_B,date\n")
         f.write(str(parameters)[1:-1]+','+now.strftime("%m-%d_%H_%M") + '\n')
         f.close()
