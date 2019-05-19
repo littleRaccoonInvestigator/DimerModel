@@ -235,6 +235,7 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
             percent += 1
            
     gsop = 0
+    """
     percent = 0
     count2 = 0
     while True:
@@ -271,8 +272,10 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
                     S = updateLoop(S,path2)
         if not flag:
             break
-        print(str(count2)+' times:'+str(E),end = ' ',flush = True)
+        print(str(count2)+' times:'+str(E),end = ' ',flush = True) """
     
+    S = load_lattice(sizeOfSample, "ground_state_36")
+    gsop = orderparameter(S,sizeOfSample)
     count = 0
     percent = 0
     while True:   
