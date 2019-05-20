@@ -217,7 +217,7 @@ def adjacent_plat(S, node1, node2, sizeOfSample):
             return None
     return bottom_node_list
 
-def delta_E(lattice, path, sizeOfSample):
+def delta_star(lattice, path, sizeOfSample):
     previous_count = 0
     next_count = 0
     bnl = []
@@ -231,8 +231,8 @@ def delta_E(lattice, path, sizeOfSample):
     for node in bnl:
         if isStar(lattice, node, sizeOfSample) == 3:
             next_count += 1
-    delta_E = previous_count - next_count
-    return delta_E
+    delta_star =  next_count - previous_count
+    return delta_star
     
 def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B,mcstp):
     
@@ -298,7 +298,7 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
             rand_i = random.randrange(sizeOfSample)
             rand_j = random.randrange(sizeOfSample)
             path = findcycle(S[rand_i][rand_j],S,sizeOfSample)
-            E1 = delta_E(S, path, sizeOfSample)
+            E1 = delta_star(S, path, sizeOfSample)*J
 
             aa = random.random()
             aa = np.log(aa)
