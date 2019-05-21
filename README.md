@@ -8,7 +8,7 @@
   6. KT phase transition criterion
 
 
-   (Introduction) 
+    Introduction
     model hexagon lattice 
     Hamilitonian: why counting star? quantum dimer model 
     periodic boundary condition 
