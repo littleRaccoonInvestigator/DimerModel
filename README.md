@@ -8,22 +8,22 @@
   6. KT phase transition criterion
 
 
-  引言（Introduction)
-  model hexagon lattice
-  Hamilitonian: why counting star? quantum dimer model 
-  periodic boundary condition
-  Definition of capacity: (why so in monte carlo simulation)
-  Definition of order parameter(highlight):
-  introduce domain
-  three degeneracy of ground state
-  at different ground state, three directions of order parameter
+ (Introduction) \n
+  model hexagon lattice \n
+  Hamilitonian: why counting star? quantum dimer model \n
+  periodic boundary condition \n
+  Definition of capacity: (why so in monte carlo simulation) \n
+  Definition of order parameter(highlight): \n
+  introduce domain \n
+  three degeneracy of ground state \n
+  at different ground state, three directions of order parameter \n
   
-  another kind of order parameter
-  stability of binder ratio why?
+  another kind of order parameter \n
+  stability of binder ratio why? \n
   
-  our work:
-  capacity  capacity-temperature curve at different size
-  phase transition point
+  our work: \n
+  capacity  capacity-temperature curve at different size \n
+  phase transition point \n
   
-  what we will do next:
-  order parameter circle/other curver in complex plane
+  what we will do next: \n
+  order parameter circle/other curver in complex plane \n 
