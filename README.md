@@ -8,17 +8,22 @@
   6. KT phase transition criterion
 
 
-  (-1,0,1) get_plat_type(Node n)
+  引言（Introduction)
+  model hexagon lattice
+  Hamilitonian: why counting star? quantum dimer model 
+  periodic boundary condition
+  Definition of capacity: (why so in monte carlo simulation)
+  Definition of order parameter(highlight):
+  introduce domain
+  three degeneracy of ground state
+  at different ground state, three directions of order parameter
   
-  array initplat(lattice, sizeOfSample)
+  another kind of order parameter
+  stability of binder ratio why?
   
-  order_parameter(lattice, platqutte)
+  our work:
+  capacity  capacity-temperature curve at different size
+  phase transition point
   
-    for node in lattice:
-    
-      if startype(node) == 0 and 
-      
-  def run(...):
-  
-    platqutte_type = initplat(lattice)
-    
+  what we will do next:
+  order parameter circle/other curver in complex plane
