@@ -738,7 +738,7 @@ def run(S,sizeOfSample,shuffle_timestep,loop_timestep,mid_term,temperature,J,k_B
     return [temperature,energy1,energy2,energy3,energy4,energy5,energy6,energy7,energy8,energy9,energy10,capacity1,capacity2,capacity3,capacity4,capacity5,capacity6,capacity7,capacity8,capacity9,capacity10,
             real1,imag1,abs1,real2,imag2,abs2,real3,imag3,abs3,real4,imag4,abs4,real5,imag5,abs5,real6,imag6,abs6,real7,imag7,abs7,real8,imag8,abs8,real9,imag9,abs9,real10,imag10,abs10,
             Oldreal1,Oldimag1,Oldabs1,Oldreal2,Oldimag2,Oldabs2,Oldreal3,Oldimag3,Oldabs3,Oldreal4,Oldimag4,Oldabs4,Oldreal5,Oldimag5,Oldabs5,Oldreal6,Oldimag6,Oldabs6,Oldreal7,Oldimag7,Oldabs7,Oldreal8,Oldimag8,Oldabs8,Oldreal9,Oldimag9,Oldabs9,Oldreal10,Oldimag10,Oldabs10,binder_ratio1,binder_ratio2,binder_ratio3,binder_ratio4,binder_ratio5,
-            gsop,accept_ratio,avg_length,
+            binder_ratio6,binder_ratio7,binder_ratio8,binder_ratio9,binder_ratio10,gsop,accept_ratio,avg_length,
     sizeOfSample,shuffle_timestep,mcstp,loop_timestep,mid_term,J,k_B]
 
 def plot(lattice,sizeOfSample):
