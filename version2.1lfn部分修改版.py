@@ -5,7 +5,7 @@ import numpy as np
 import datetime
 import pickle
 
-def go_left(node, sz): #typically sz = 6
+def go_right(node, sz): #typically sz = 6
     x0 = node.location[1]
     y0 = node.location[0]
     x,y = 0,0
@@ -20,9 +20,9 @@ def go_left(node, sz): #typically sz = 6
     else:
         x = x0 + 1
         y = y0
-    return (x,y)
+    return (int(x),int(y))
 
-def go_right(node, sz):
+def go_left(node, sz):
     x0 = node.location[1]
     y0 = node.location[0]
     x,y = 0,0
@@ -35,9 +35,9 @@ def go_right(node, sz):
             x = sz-1
             y = y0 -short/2
     else:
-        x = x0 + 1
+        x = x0 -+ 1
         y = y0
-    return (x,y)
+    return (int(x),int(y))
     
 def go_updown(node, sz):
     x0 = node.location[1]
@@ -49,9 +49,10 @@ def go_updown(node, sz):
         y = (y0 + 1)%short
     else:   #go down
         y = (y0 - 1)%short 
-    return (x,y)
+    return (int(x),int(y))
     
 def retrive(S, location): # node.linkedto = retrive(S,go_updown(node, sizeOfSample))
+    print(location)
     return S[location[1]][location[0]]
 
 class Node(object):
@@ -130,11 +131,11 @@ def findcycle(node,S,sizeOfSample):
             
         else:
             if(choice == 0):
-                nextnode = S[(now_index[0]+updown)%sizeOfSample][now_index[1]]
+                nextnode = retrive(S, go_updown(S[now_index[0]][now_index[1]],sizeOfSample))
             elif(choice==1):
-                nextnode = go_right(S[now_index[0]][(now_index[1])],sizeOfSample)
+                nextnode = retrive(S, go_right(S[now_index[0]][now_index[1]],sizeOfSample))
             elif(choice==-1):
-                nextnode = go_left(S[now_index[0]][(now_index[1])],sizeOfSample)
+                nextnode = retrive(S, go_left(S[now_index[0]][now_index[1]],sizeOfSample))
             mark = True
 
         count += 1
@@ -590,8 +591,8 @@ def show_path(path):
     for node in path:
         node.plot()
 if __name__ == "__main__":
-    mcstp = 48*48
-    sizeOfSample = 48
+    mcstp = 24*24
+    sizeOfSample = 24
     shuffle_timestep = 100
     loop_timestep = 5
     mid_term = 1
