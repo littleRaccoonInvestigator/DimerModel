@@ -219,13 +219,13 @@ def isStar(S,node,sizeOfSample):
     location1 = node.location
     location1_x = location1[0]
     location1_y = location1[1]
-    right = go_right(node,sizeOfSample)
-    left = go_left(node,sizeOfSample)
+    right = retrive(S, go_right(node,sizeOfSample))
+    left = retrive(S, go_left(node,sizeOfSample))
     node_list = [node,
                  right,
-                 go_updown(right,sizeOfSample),
-                 go_updown(node,sizeOfSample),
-                 go_updown(left,sizeOfSample),
+                 retrive(S, go_updown(right,sizeOfSample)),
+                 S[(location1_x+1)%sizeOfSample][location1_y],
+                 retrive(S, go_updown(left,sizeOfSample)),
                  left
                  ]
     count = 0
