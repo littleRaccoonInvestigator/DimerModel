@@ -856,10 +856,10 @@ def show_path(path):
     for node in path:
         node.plot()
 if __name__ == "__main__":
-    mcstp = 12*12
-    sizeOfSample = 12
+    mcstp = 48*32
+    sizeOfSample = 48
     shuffle_timestep = 100
-    loop_timestep = 2000
+    loop_timestep = 5000
     mid_term = 1
     temperature = [0.96]
     k_B = 1 
