@@ -247,17 +247,17 @@ def adjacent_plat(S, node1, node2, sizeOfSample):
     x1,y1,x2,y2 = node1.location[1], node1.location[0],node2.location[1], node2.location[0]
     if x1 == x2:
         if y1 == 0 and y2 == sizeOfSample - 1:
-            bottom_node_list.append(S[y2][(x2+1)%sizeOfSample])
-            bottom_node_list.append(S[y2][(x2-1)%sizeOfSample])
+            bottom_node_list.append(retrive(S,go_right(node2)))
+            bottom_node_list.append(retrive(S,go_left(node2)))
         elif y2 == 0 and y1 == sizeOfSample - 1:
-            bottom_node_list.append(S[y1][(x1+1)%sizeOfSample])
-            bottom_node_list.append(S[y1][(x1-1)%sizeOfSample])
+            bottom_node_list.append(retrive(S,go_right(node1)))
+            bottom_node_list.append(retrive(S,go_left(node1)))
         elif y1 < y2:
-            bottom_node_list.append(S[y1][(x1+1)%sizeOfSample])
-            bottom_node_list.append(S[y1][(x1-1)%sizeOfSample])
+            bottom_node_list.append(retrive(S,go_right(node1)))
+            bottom_node_list.append(retrive(S,go_left(node1)))
         else:
-            bottom_node_list.append(S[y2][(x2+1)%sizeOfSample])
-            bottom_node_list.append(S[y2][(x2-1)%sizeOfSample])
+            bottom_node_list.append(retrive(S,go_right(node2)))
+            bottom_node_list.append(retrive(S,go_left(node2)))
     else:
         if (x1 + y1)%2 == 0:
             bottom_node_list.append(S[y1][x1])
